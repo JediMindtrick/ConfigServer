@@ -15,8 +15,9 @@ app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.basicAuth(process.env.SERVICE_USER, process.env.SERVICE_PASSWORD));
 
-var collection = null;// db.collection('foo');
+var collection = null;
 
 app.get('/:name',function(req,res) {
 

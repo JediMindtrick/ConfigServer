@@ -19,6 +19,10 @@ app.use(express.basicAuth(process.env.SERVICE_USER, process.env.SERVICE_PASSWORD
 
 var collection = null;
 
+app.get('/health',function(req,res) {
+	res.send('connected: ' + connected);
+});
+
 app.get('/:name',function(req,res) {
 
 	collection.find({name:req.param('name')}).toArray(function(err, results) {
@@ -32,10 +36,6 @@ app.get('/:name',function(req,res) {
 			});
 		}
 	});
-});
-
-app.get('/',function(req,res){
-	res.send('connected: ' + connected);
 });
 
 MongoClient.connect(process.env.CONFIG_DB, function(err, db) {

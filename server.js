@@ -8,13 +8,13 @@ var path = require('path');
 var app = express();
 var MongoClient = require('mongodb').MongoClient
 
+
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(express.static(path.join(__dirname, 'public')));
-
 
 var collection = null;// db.collection('foo');
 
@@ -31,7 +31,10 @@ app.get('/:name',function(req,res) {
 			});
 		}
 	});
+});
 
+app.get('/',function(req,res){
+	res.send('OK');
 });
 
 MongoClient.connect(process.env.CONFIG_DB, function(err, db) {

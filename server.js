@@ -7,7 +7,7 @@ var http = require('http');
 var path = require('path');
 var app = express();
 var MongoClient = require('mongodb').MongoClient
-
+var connected = false;
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -34,7 +34,7 @@ app.get('/:name',function(req,res) {
 });
 
 app.get('/',function(req,res){
-	res.send('OK');
+	res.send('connected: ' + connected);
 });
 
 MongoClient.connect(process.env.CONFIG_DB, function(err, db) {
@@ -42,10 +42,10 @@ MongoClient.connect(process.env.CONFIG_DB, function(err, db) {
 
 	collection = db.collection('foo');
 
-	http.createServer(app).listen(app.get('port'), function(){
-	 	console.log('Express server listening on port ' + app.get('port'));
-	});
+	connected = true;
 
 });
 
-
+http.createServer(app).listen(app.get('port'), function(){
+ 	console.log('Express server listening on port ' + app.get('port'));
+});

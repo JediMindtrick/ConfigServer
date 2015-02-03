@@ -19,6 +19,10 @@ app.use(express.basicAuth(process.env.SERVICE_USER, process.env.SERVICE_PASSWORD
 
 var collection = null;
 
+app.get('/',function(req,res) {
+	res.send('OK');
+});
+
 app.get('/health',function(req,res) {
 	res.send('connected: ' + connected);
 });
